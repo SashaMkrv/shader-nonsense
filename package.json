@@ -4,16 +4,19 @@
   "description": "get you a pile of shader tests",
   "main": "index.js",
   "scripts": {
-    "start": "budo index.js --open --live"
+    "start": "budo spiral.js --open --live"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "browserify": "^17.0.0",
     "budo": "^11.6.4",
+    "bunny": "^1.0.1",
+    "gl-mat4": "^1.2.0",
     "glslify": "^7.1.1",
     "mouse-change": "^1.4.0",
-    "regl": "^2.0.1"
+    "regl": "^2.0.1",
+    "seedrandom": "^3.0.5"
   },
   "browserify": {
     "transform": [

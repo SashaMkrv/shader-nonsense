@@ -34,7 +34,7 @@ const drawFeedback = regl({
 
 regl.frame(function () {
   regl.clear({
-    color: [0, 0, 0, 1]
+    color: [0, 0, 1.0, 1]
   })
 
   drawFeedback()
