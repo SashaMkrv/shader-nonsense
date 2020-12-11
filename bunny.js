@@ -12,9 +12,10 @@ const glslify = require('glslify')
 
 const pixels = regl.texture()
 const pixels2 = regl.texture()
+const pixels3 = regl.texture()
 
 const camera = require('./util/camera')(regl, {
-  center: [0, 2.5, 0]
+  center: [0, 4.0, 0]
 })
 
 const drawBunny = regl({
@@ -45,6 +46,7 @@ const drawAberration = regl({
     ],
   },
   uniforms: {
+    z: -0.5,
     texture: pixels,
     t: ({tick}) => 0.005 * tick,
     resolution: (
@@ -65,7 +67,28 @@ const drawFlat = regl({
     ],
   },
   uniforms: {
+    z: -0.6,
     texture: pixels2,
+    resolution: (
+      {viewportHeight, viewportWidth}
+    ) => [viewportWidth, viewportHeight],
+  },
+  count: 3,
+})
+const drawBars = regl({
+  vert: glslify('./shaders/passthroughVertex.vs.glsl'),
+  frag: glslify('./shaders/bars.fs.glsl'),
+  attributes: {
+    position: [
+      -1.0, -2.5,
+      -1.0, 1.0,
+      1.0, 1.0,
+    ],
+  },
+  uniforms: {
+    z: -0.7,
+    t: ({tick}) => 0.005 * tick,
+    texture: pixels3,
     resolution: (
       {viewportHeight, viewportWidth}
     ) => [viewportWidth, viewportHeight],
@@ -88,4 +111,8 @@ regl.frame(() => {
     copy: true
   })
   drawFlat()
+  pixels3({
+    copy: true
+  })
+  drawBars()
 })
