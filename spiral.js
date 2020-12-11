@@ -5,8 +5,34 @@
 
 const regl = require('regl')()
 const glslify = require('glslify')
+const mouse = require('mouse-change')()
 var mat4 = require('gl-mat4')
 var rng = require('seedrandom')('my_seed')
+
+var pixels = regl.texture()
+
+const drawFeedback = regl({
+    frag: glslify('./shaders/example.fs.glsl'),
+    vert: glslify('./shaders/example.vs.glsl'),
+  
+    attributes: {
+      position: [
+        -2, 0,
+        0, -2,
+        2, 2]
+    },
+  
+    uniforms: {
+      texture: pixels,
+      mouse: ({pixelRatio, viewportHeight}) => [
+        mouse.x * pixelRatio,
+        viewportHeight - mouse.y * pixelRatio
+      ],
+      t: ({tick}) => 0.005 * tick
+    },
+  
+    count: 3
+  })
 
 var globalState = regl({
   uniforms: {
@@ -73,7 +99,7 @@ drawCalls.push(createDrawCall({
 regl.frame(({tick}) => {
   regl.clear({
     color: [0, 0, 0, 1],
-    depth: 1
+    // depth: 1
   })
 
   globalState(() => {
@@ -81,4 +107,6 @@ regl.frame(({tick}) => {
       drawCalls[i]()
     }
   })
+
+  drawFeedback()
 })
