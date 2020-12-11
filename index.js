@@ -40,6 +40,6 @@ regl.frame(function () {
   drawFeedback()
 
   pixels({
-    copy: true
+    copy: true,
   })
 })
