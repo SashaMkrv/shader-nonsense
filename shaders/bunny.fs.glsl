@@ -3,6 +3,7 @@ varying vec3 vnormal;
 uniform float t;
 uniform vec2 resolution;
 uniform sampler2D texture;
+uniform bool round;
 
 bool aboveSin(vec4 coord) {
     if (coord.y > (sin(t + coord.x*0.005)*0.25 + 0.6)*resolution.x*0.5 + 0.1) return true;
@@ -18,5 +19,11 @@ void main () {
     // if (aboveSin(gl_FragCoord)) {
     //     color *= 0.9;
     // }
+
+    if (round) {
+        color.x = floor(color.x + 0.5);
+        color.y = floor(color.x + 0.5);
+        color.z = floor(color.z + 0.5);
+    }
     gl_FragColor = color;
 }

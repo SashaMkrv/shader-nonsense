@@ -3,7 +3,7 @@ uniform vec2 resolution;
 uniform sampler2D texture;
 
 float floatToBase(float x, float base) {
-    return floor(x * base)/base;
+    return floor(x * base + 0.5)/base;
 }
 
 vec3 flattenColor(sampler2D texture, vec2 st, float base) {

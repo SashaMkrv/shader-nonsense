@@ -26,6 +26,7 @@ const drawBunny = regl({
     normal: normals(bunny.cells, bunny.positions)
   },
   uniforms: {
+    round: false,
     texture: pixels,
     t: ({tick}) => 0.005 * tick,
     resolution: (
