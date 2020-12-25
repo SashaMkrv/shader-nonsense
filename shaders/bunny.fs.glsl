@@ -1,5 +1,5 @@
 precision mediump float;
-varying vec3 vnormal;
+varying vec3 vnormal, light, toViewNormal;
 uniform float t;
 uniform vec2 resolution;
 uniform sampler2D texture;
@@ -15,15 +15,12 @@ bool bars(vec4 coord) {
 }
 
 void main () {
-    vec4 color = vec4(abs(vnormal), 1.0);
-    // if (aboveSin(gl_FragCoord)) {
-    //     color *= 0.9;
-    // }
+    vec4 color = vec4(abs(vnormal * length(max(vec3(0.0), light))), 1.0);
 
-    if (round) {
-        color.x = floor(color.x + 0.5);
-        color.y = floor(color.x + 0.5);
-        color.z = floor(color.z + 0.5);
-    }
     gl_FragColor = color;
+    gl_FragColor = vec4(vec3(0.0), 1.0);
+
+    if (length(toViewNormal) < 0.3) {
+        gl_FragColor = vec4(1.0);
+    }
 }

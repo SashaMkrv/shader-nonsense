@@ -7,28 +7,11 @@ bool bars(vec4 coord) {
     return (mod(coord.y + t*100.0, 10.0) < 5.0);
 }
 
-float roundToDecimal(float x, float decimal) {
-    float power = pow(10.0,  decimal);
-    return floor(power * x)/power;
-}
-
-float floatToBase(float x, float base) {
-    return floor(x * base)/base;
-}
-
 vec3 aberrateColor(sampler2D texture, vec2 st, float error) {
     return vec3(
         texture2D(texture, st - vec2(error)).rgb.x,
         texture2D(texture, st + vec2(error)).rgb.y,
         texture2D(texture, st - vec2(0.0, error)).rgb.z
-    );
-}
-
-vec3 aberrateColor2(sampler2D texture, vec2 st, float error) {
-    return vec3(
-        floatToBase(texture2D(texture, st - vec2(error)).rgb.x, 4.0),
-        floatToBase(texture2D(texture, st + vec2(error)).rgb.y, 4.0),
-        floatToBase(texture2D(texture, st - vec2(0.0, error)).rgb.z, 4.0)
     );
 }
 

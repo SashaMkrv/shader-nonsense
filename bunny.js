@@ -6,7 +6,7 @@
 
 const regl = require('regl')()
 
-const bunny = require('bunny')
+const model = require('bunny')
 const normals = require('angle-normals')
 const glslify = require('glslify')
 
@@ -15,25 +15,26 @@ const pixels2 = regl.texture()
 const pixels3 = regl.texture()
 
 const camera = require('./util/camera')(regl, {
-  center: [0, 4.0, 0]
+  center: [1.0, 4.0, 0.0]
 })
 
 const drawBunny = regl({
   frag: glslify('./shaders/bunny.fs.glsl'),
   vert: glslify('./shaders/bunny.vs.glsl'),
   attributes: {
-    position: bunny.positions,
-    normal: normals(bunny.cells, bunny.positions)
+    position: model.positions,
+    normal: normals(model.cells, model.positions)
   },
   uniforms: {
     round: false,
+    lightVector: [1.0, 1.0, 0.0],
     texture: pixels,
     t: ({tick}) => 0.005 * tick,
     resolution: (
       {viewportHeight, viewportWidth}
     ) => [viewportWidth, viewportHeight],
   },
-  elements: bunny.cells
+  elements: model.cells
 })
 
 const drawAberration = regl({

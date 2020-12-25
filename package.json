@@ -18,7 +18,8 @@
     "mouse-change": "^1.4.0",
     "mouse-wheel": "^1.2.0",
     "regl": "^2.0.1",
-    "seedrandom": "^3.0.5"
+    "seedrandom": "^3.0.5",
+    "teapot": "^1.0.0"
   },
   "browserify": {
     "transform": [
